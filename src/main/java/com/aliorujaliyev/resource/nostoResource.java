@@ -2,6 +2,8 @@ package com.aliorujaliyev.resource;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 @Path("/number")
@@ -26,7 +28,31 @@ public class nostoResource {
             return result;
         }
 
+//        Constructing an array list from the digits of the number for faster and easier sort
+        long temp = number;
+        ArrayList<Long> array = new ArrayList<>();
+        do{
+            array.add(temp % 10);
+            temp /= 10;
+        } while  (temp > 0);
 
-        return input;
+//       reverse sorting the array, so that larger digits are in the beginning of the array list
+        Collections.sort(array);
+        Collections.reverse(array);
+
+        long new_number = 0;
+
+//        calculating new number based on the reversed array
+        for (long digit: array) {
+            new_number *= 10;
+            new_number += digit;
+        }
+
+//        return number only in case of acquiring larger new number
+        if (new_number > number){
+            return Long.toString(new_number);
+        }
+
+        return result;
     }
 }
