@@ -21,7 +21,10 @@ public class nostoResource {
 //        Long can't be larger than 9223372036854775807, so no need to check number > Long.MAX_VALUE
         try {
             number = Long.parseLong(input);
-            if (number < 0){
+
+            //      Any number more than 9222222222222222222 will crash program, as algorithm
+            //      can swap larger digits than 2 to the second index which makes it overflow the Long data type
+            if (number < 0 || number > Long.parseLong("9222222222222222222")){
                 return result;
             }
         } catch (NumberFormatException nfe) {
